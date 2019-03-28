@@ -75,7 +75,9 @@ spawnToWorkspace workspace program = do
   windows $ W.greedyView workspace
 
 
-myTerminator = "terminator"
+cmdTerminator = "terminator"
+--cmdSpotifyPlayPause = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+cmdPlayPause = "playerctl play-pause"
 
 --manageScratchPad :: ManageHook
 --manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
@@ -111,7 +113,7 @@ myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","et
 --
 myManageHook = composeAll
     [
-      className =? "Google-chrome"                --> doShift "2:web"
+      className =? "Google-chrome"                --> doShift "mail"
     , resource  =? "desktop_window"               --> doIgnore
     , className =? "Galculator"                   --> doCenterFloat
     , className =? "Steam"                        --> doCenterFloat
@@ -129,6 +131,7 @@ myManageHook = composeAll
 
 -- app affinity --------------------------------------------------------
     , className =? "Idea"                         --> doShift "idea"
+--    , className =? "Idea"                         --> doF (W.shift (myWorkspaces !! 2))
     , className =? "Slack"                        --> doShift "icq"
     , className =? "Cromium"                      --> doShift "misc"
     , className =? "Geany"                        --> doShift "misc"
@@ -284,7 +287,9 @@ myTabTheme = def
 -- "windows key" is usually mod4Mask.
 --
 myModMask = mod4Mask
+--altMask = (mod1Mask || mod4Mask)
 altMask = mod1Mask
+altgrMask = mod5Mask
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
@@ -346,10 +351,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --
-
-  -- Close focused window.
-  , ((modMask .|. shiftMask, xK_c),
-     kill)
 
   -- Cycle through the available layout algorithms.
   , ((modMask, xK_space),
@@ -465,7 +466,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
   -- desktops
     ((altMask, xK_z),                 windows $ W.greedyView "web")
---  , ((modMask .|. shiftMask, xK_z),     windows $ W.greedyView "web")
   , ((altMask, xK_x),                 windows $ W.greedyView "idea")
   , ((altMask, xK_a),                 windows $ W.greedyView "term")
   , ((altMask, xK_c),                 windows $ W.greedyView "misc")
@@ -475,12 +475,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((altMask .|. controlMask, xK_x), windows $ W.greedyView "icq")
   , ((altMask .|. controlMask, xK_c), windows $ W.greedyView "etc")
 
+  -- Close focused window.
+  , ((modMask .|. shiftMask, xK_c),   kill)
+  , ((modMask .|. shiftMask, xK_a),   kill)
+
   -- yakscratch
---  , ((modMask, xK_p),                 scratchpadSpawnActionTerminal myTerminator)
+--  , ((modMask, xK_p),                 scratchpadSpawnActionTerminal cmdTerminator)
 
   -- volume
-  , ((altMask, xK_Up),                spawn "amixer -q set Master 5%+")
-  , ((altMask, xK_Down),              spawn "amixer -q set Master 5%-")
+  , ((altMask, xK_Page_Up),           spawn "amixer -q set Master 10%+")
+  , ((altMask, xK_Page_Down),         spawn "amixer -q set Master 10%-")
+
+  -- spotify
+  , ((altMask, xK_l),                 spawn cmdSpotifyPlayPause)
 
   -- apps
   , ((modMask .|. altMask, xK_s),     spawnToWorkspace "icq"  "slack")
@@ -488,7 +495,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_i),     spawnToWorkspace "idea" "idea")
   , ((modMask .|. altMask, xK_p),     spawn "pavucontrol")
   , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
-  , ((modMask .|. altMask, xK_t),     spawn myTerminator)
+  , ((modMask .|. altMask, xK_t),     spawn cmdTerminator)
+
+  , ((altMask, xK_t),                 spawn cmdTerminator)
+  , ((altMask, xK_g),                 spawn "geany")
+
+  , ((controlMask .|. shiftMask, xK_Escape), spawnToWorkspace "etc"  "ksysguard")
 
   -- move focus
   , ((altMask, xK_q),
