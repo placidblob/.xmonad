@@ -43,6 +43,7 @@ import qualified Data.Map        as M
 
 --import XMonad.Util.Scratchpad
 
+--import XMonad.YaK.Keys as Ykeys
 
 ----------------------------mupdf--------------------------------------------
 -- Terminimport XMonad.Hooks.EwmhDesktopsal
@@ -78,6 +79,8 @@ spawnToWorkspace workspace program = do
 cmdTerminator = "terminator"
 --cmdSpotifyPlayPause = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
 cmdPlayPause = "playerctl play-pause"
+cmdNext      = "playerctl next"
+cmdPrev      = "playerctl previous"
 
 --manageScratchPad :: ManageHook
 --manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
@@ -297,116 +300,90 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask .|. shiftMask, xK_Return),
-     spawn $ XMonad.terminal conf)
+  [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
   -- Lock the screen using command specified by myScreensaver.
-  , ((modMask, xK_0),
-     spawn myScreensaver)
+  , ((modMask, xK_0), spawn myScreensaver)
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_z),
-     spawn myLauncher)
+  , ((modMask, xK_z), spawn myLauncher)
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
---  , ((modMask .|. shiftMask, xK_p),
---     spawn mySelectScreenshot)
+--  , ((modMask .|. shiftMask, xK_p), spawn mySelectScreenshot)
 
   -- Take a full screenshot using the command specified by myScreenshot.
-  , ((modMask .|. controlMask .|. shiftMask, xK_p),
-     spawn myScreenshot)
+  , ((modMask .|. controlMask .|. shiftMask, xK_p), spawn myScreenshot)
 
   -- Toggle current focus window to fullscreen
   , ((modMask, xK_f), sendMessage $ Toggle FULL)
 
   -- Mute volume.
-  , ((0, xF86XK_AudioMute),
-     spawn "amixer -q set Master toggle")
+  , ((0, xF86XK_AudioMute), spawn "amixer -q set Master toggle")
 
   -- Decrease volume.
-  , ((0, xF86XK_AudioLowerVolume),
-     spawn "amixer -q set Master 5%-")
+  , ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set Master 5%-")
 
   -- Increase volume.
-  , ((0, xF86XK_AudioRaiseVolume),
-     spawn "amixer -q set Master 5%+")
+  , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q set Master 5%+")
 
   -- Audio previous.
-  , ((0, 0x1008FF16),
-     spawn "")
+  , ((0, 0x1008FF16), spawn "cmdPrev")
 
   -- Play/pause.
-  , ((0, 0x1008FF14),
-     spawn "")
+  , ((0, 0x1008FF14), spawn "cmdPlayPause")
 
   -- Audio next.
-  , ((0, 0x1008FF17),
-     spawn "")
+  , ((0, 0x1008FF17), spawn "cmdNext")
 
   -- Eject CD tray.
-  , ((0, 0x1008FF2C),
-     spawn "eject -T")
+  , ((0, 0x1008FF2C), spawn "eject -T")
 
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --
 
   -- Cycle through the available layout algorithms.
-  , ((modMask, xK_space),
-     sendMessage NextLayout)
+  , ((modMask, xK_space), sendMessage NextLayout)
 
   --  Reset the layouts on the current workspace to default.
-  , ((modMask .|. shiftMask, xK_space),
-     setLayout $ XMonad.layoutHook conf)
+  , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
 
   -- Resize viewed windows to the correct size.
-  , ((modMask, xK_n),
-     refresh)
+  , ((modMask, xK_n), refresh)
 
   -- Move focus to the next window.
-  , ((modMask, xK_j),
-     windows W.focusDown)
+  , ((modMask, xK_j), windows W.focusDown)
 
   -- Move focus to the previous window.
-  , ((modMask, xK_k),
-     windows W.focusUp  )
+  , ((modMask, xK_k), windows W.focusUp  )
 
   -- Move focus to the master window.
-  , ((modMask, xK_m),
-     windows W.focusMaster  )
+  , ((modMask, xK_m), windows W.focusMaster  )
 
   -- Swap the focused window and the master window.
---  , ((modMask, xK_Return),
---     windows W.swapMaster)
+--  , ((modMask, xK_Return), windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_j),
-     windows W.swapDown  )
+  , ((modMask .|. shiftMask, xK_j), windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. shiftMask, xK_k),
-     windows W.swapUp    )
+  , ((modMask .|. shiftMask, xK_k), windows W.swapUp    )
 
   -- Shrink the master area.
-  , ((modMask, xK_h),
-     sendMessage Shrink)
+  , ((modMask, xK_h), sendMessage Shrink)
 
   -- Expand the master area.
-  , ((modMask, xK_l),
-     sendMessage Expand)
+  , ((modMask, xK_l), sendMessage Expand)
 
   -- Push window back into tiling.
-  , ((modMask, xK_t),
-     withFocused $ windows . W.sink)
+  , ((modMask, xK_t), withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area.
-  , ((modMask, xK_comma),
-     sendMessage (IncMasterN 1))
+  , ((modMask, xK_comma), sendMessage (IncMasterN 1))
 
   -- Decrement the number of windows in the master area.
-  , ((modMask, xK_period),
-     sendMessage (IncMasterN (-1)))
+  , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
 
   -- Toggle the status bar gap.
   -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
@@ -487,7 +464,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((altMask, xK_Page_Down),         spawn "amixer -q set Master 10%-")
 
   -- spotify
-  , ((altMask, xK_l),                 spawn cmdSpotifyPlayPause)
+  , ((altMask, xK_l),                 spawn cmdPlayPause)
+  , ((altMask, xK_p),                 spawn cmdNext)
+  , ((altMask, xK_o),                 spawn cmdPrev)
 
   -- apps
   , ((modMask .|. altMask, xK_s),     spawnToWorkspace "icq"  "slack")
