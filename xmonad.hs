@@ -479,13 +479,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((altMask, xK_t),                 spawn cmdTerminator)
   , ((altMask, xK_g),                 spawn "geany")
 
+  -- CTRL-SHIFT-ESC
   , ((controlMask .|. shiftMask, xK_Escape), spawnToWorkspace "etc"  "ksysguard")
 
   -- move focus
-  , ((altMask, xK_q),
-     windows W.focusDown)
-  , ((altMask, xK_w),
-     windows W.focusUp)
+  , ((altMask, xK_q),                 windows W.focusDown)
+  , ((altMask, xK_w),                 windows W.focusUp)
 
   ]
 --------------------------------------------------------------------------------------------------
