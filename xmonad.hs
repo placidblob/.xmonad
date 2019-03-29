@@ -442,9 +442,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- yakkeys
   [
   -- desktops
-    ((altMask, xK_z),                 windows $ W.greedyView "web")
+    ((altMask, xK_a),                 windows $ W.greedyView "web")
   , ((altMask, xK_x),                 windows $ W.greedyView "idea")
-  , ((altMask, xK_a),                 windows $ W.greedyView "term")
+  , ((altMask, xK_z),                 windows $ W.greedyView "term")
   , ((altMask, xK_c),                 windows $ W.greedyView "misc")
   , ((altMask, xK_s),                 windows $ W.greedyView "music")
   , ((altMask .|. controlMask, xK_a), windows $ W.greedyView "video")
@@ -476,15 +476,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
   , ((modMask .|. altMask, xK_t),     spawn cmdTerminator)
 
+-- move to a different module
+--  , ((modMask, xK_b),     spawn foo)
+
   , ((altMask, xK_t),                 spawn cmdTerminator)
   , ((altMask, xK_g),                 spawn "geany")
 
-  -- CTRL-SHIFT-ESC
   , ((controlMask .|. shiftMask, xK_Escape), spawnToWorkspace "etc"  "ksysguard")
 
   -- move focus
-  , ((altMask, xK_q),                 windows W.focusDown)
-  , ((altMask, xK_w),                 windows W.focusUp)
+  , ((altMask, xK_q),
+     windows W.focusDown)
+  , ((altMask, xK_w),
+     windows W.focusUp)
 
   ]
 --------------------------------------------------------------------------------------------------

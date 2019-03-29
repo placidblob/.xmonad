@@ -2,7 +2,7 @@ module XMonad.YaK.Keys (
   -- testing
   foo, function1, keys
 ) where
---  import XMonad
+  import qualified XMonad
   import qualified XMonad.StackSet as W
 --  import XMonad.Util.EZConfig(additionalKeys)
 
