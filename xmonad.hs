@@ -16,6 +16,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.UrgencyHook
 
 import XMonad.Layout.Gaps
 import XMonad.Layout.Fullscreen
@@ -33,7 +34,9 @@ import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.ZoomRow
 
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.NamedWindows
+import XMonad.Util.Run
+--import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Cursor
 
@@ -75,12 +78,33 @@ spawnToWorkspace workspace program = do
   spawn program
   windows $ W.greedyView workspace
 
+--yakNotifyStr :: String -> String -> String
+--yakNotifyStr title message
+--  "notify-send " ++ title ++ " " ++ message
+--
+--yakNotify :: String -> String -> X ()
+--yakNotify title message
+--  spawn yakNotifyStr title message
 
 cmdTerminator = "terminator"
 --cmdSpotifyPlayPause = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
 cmdPlayPause = "playerctl play-pause"
 cmdNext      = "playerctl next"
 cmdPrev      = "playerctl previous"
+
+
+
+
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+    urgencyHook LibNotifyUrgencyHook w = do
+        name     <- getName w
+        Just idx <- fmap (W.findTag w) $ gets windowset
+
+        safeSpawn "notify-send" [show name, "workspace " ++ idx]
+
+
 
 --manageScratchPad :: ManageHook
 --manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
@@ -117,7 +141,7 @@ myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","et
 myManageHook = composeAll
     [
       className =? "Google-chrome"                --> doShift "mail"
-    , resource  =? "desktop_window"               --> doIgnore
+--    , resource  =? "desktop_window"               --> doIgnore
     , className =? "Galculator"                   --> doCenterFloat
     , className =? "Steam"                        --> doCenterFloat
     , className =? "Gimp"                         --> doCenterFloat
@@ -131,6 +155,7 @@ myManageHook = composeAll
     , className =? "Guake"                        --> doCenterFloat
     , className =? "Tilda"                        --> doCenterFloat
     , className =? "Nitrogen"                     --> doCenterFloat
+    , className =? "Spotify"                      --> doCenterFloat
 
 -- app affinity --------------------------------------------------------
     , className =? "Idea"                         --> doShift "idea"
@@ -168,7 +193,7 @@ tab          =  avoidStruts
                $ myGaps
                $ tabbed shrinkText myTabTheme
 
-layouts      = avoidStruts (
+layouts      = avoidStruts $
                 (
                     renamed [CutWordsLeft 1]
                   $ addTopBar
@@ -180,7 +205,6 @@ layouts      = avoidStruts (
                   $ addSpace (BSP.emptyBSP)
                 )
                 ||| tab
-               )
 
 myLayout    = smartBorders
               $ mkToggle (NOBORDERS ?? FULL ?? EOT)
@@ -436,8 +460,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 --  , ((modMask, xK_Tab), onGroup W.focusDown')
   ]
 
-
   ++
+  
 --------------------------------------------------------------------------------------------------
 -- yakkeys
   [
@@ -453,8 +477,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((altMask .|. controlMask, xK_c), windows $ W.greedyView "etc")
 
   -- Close focused window.
-  , ((modMask .|. shiftMask, xK_c),   kill)
-  , ((modMask .|. shiftMask, xK_a),   kill)
+  , ((modMask .|. shiftMask, xK_c),     kill)
+  , ((controlMask .|. shiftMask, xK_q), kill)
 
   -- yakscratch
 --  , ((modMask, xK_p),                 scratchpadSpawnActionTerminal cmdTerminator)
@@ -475,6 +499,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_p),     spawn "pavucontrol")
   , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
   , ((modMask .|. altMask, xK_t),     spawn cmdTerminator)
+
+  , ((modMask .|. altMask, xK_l),     spawn "notify-send \"A title\" \"A message\"")
 
 -- move to a different module
 --  , ((modMask, xK_b),     spawn foo)
@@ -570,7 +596,8 @@ myStartupHook = do
 --
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc.hs"
-  xmonad $ docks
+  xmonad $ withUrgencyHook LibNotifyUrgencyHook
+         $ docks
          $ withNavigation2DConfig myNav2DConf
          $ additionalNav2DKeys (xK_Up, xK_Left, xK_Down, xK_Right)
                                [
