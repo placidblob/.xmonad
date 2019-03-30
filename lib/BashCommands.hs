@@ -1,5 +1,8 @@
 module BashCommands (
-  cmdTerminator
+  cmdLauncher
+, cmdTerminal
+, cmdTerminator
+, cmdScreenshot
 , cmdPlayPause
 , cmdNext
 , cmdPrev
@@ -10,7 +13,12 @@ module BashCommands (
 , cmdSpotifyPlayPause
 ) where
 
+  cmdLauncher   = "rofi -show run"
+
+  cmdTerminal   = "konsole"
   cmdTerminator = "terminator"
+  cmdScreenshot = "spectacle"
+
   cmdPlayPause  = "playerctl play-pause"
   cmdNext       = "playerctl next"
   cmdPrev       = "playerctl previous"

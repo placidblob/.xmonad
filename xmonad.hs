@@ -44,31 +44,10 @@ import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
---import XMonad.Util.Scratchpad
 
-import BashCommands as C
-
-----------------------------mupdf--------------------------------------------
--- Terminimport XMonad.Hooks.EwmhDesktopsal
--- The preferred terminal program, which is used in a binding below and by
--- certain contrib modules.
---
-myTerminal = "konsole"
-
--- The command to lock the screen or show the screensaver.
-myScreensaver = "dm-tool switch-to-greeter"
-
--- The command to take a selective screenshot, where you select
--- what you'd like to capture on the screen.
-mySelectScreenshot = "select-screenshot"
-
--- The command to take a fullscreen screenshot.
-myScreenshot = "xfce4-screenshooter"
-
--- The command to use as a launcher, to launch commands that don't have
--- preset keybindings.
-myLauncher = "rofi -show run"
-
+------------------------------------------------------------------------
+-- yak
+import qualified BashCommands as C
 
 ------------------------------------------------------------------------
 -- yak
@@ -309,7 +288,7 @@ myModMask = mod4Mask
 altMask = mod1Mask
 altgrMask = mod5Mask
 
-myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
   -- Custom key bindings
   --
@@ -317,18 +296,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
   [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
-  -- Lock the screen using command specified by myScreensaver.
-  , ((modMask, xK_0), spawn myScreensaver)
-
-  -- Spawn the launcher using command specified by myLauncher.
-  -- Use this to launch programs without a key binding.
-  , ((modMask, xK_z), spawn myLauncher)
+  , ((modMask, xK_z), spawn C.cmdLauncher)
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
 --  , ((modMask .|. shiftMask, xK_p), spawn mySelectScreenshot)
 
   -- Take a full screenshot using the command specified by myScreenshot.
-  , ((modMask .|. controlMask .|. shiftMask, xK_p), spawn myScreenshot)
+  , ((modMask .|. controlMask .|. shiftMask, xK_p), spawn C.cmdScreenshot)
 
   -- Toggle current focus window to fullscreen
   , ((modMask, xK_f), sendMessage $ Toggle FULL)
@@ -604,7 +578,7 @@ main = do
 --
 defaults = def {
     -- simple stuff
-    terminal           = myTerminal,
+    terminal           = C.cmdTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
@@ -613,7 +587,7 @@ defaults = def {
     focusedBorderColor = myFocusedBorderColor,
 
     -- key bindings
-    keys               = myKeys,
+    keys               = keyBindings,
     mouseBindings      = myMouseBindings,
 
     -- hooks, layouts
