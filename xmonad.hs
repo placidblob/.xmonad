@@ -46,7 +46,7 @@ import qualified Data.Map        as M
 
 --import XMonad.Util.Scratchpad
 
---import XMonad.YaK.Keys as Ykeys
+import BashCommands as C
 
 ----------------------------mupdf--------------------------------------------
 -- Terminimport XMonad.Hooks.EwmhDesktopsal
@@ -85,15 +85,6 @@ spawnToWorkspace workspace program = do
 --yakNotify :: String -> String -> X ()
 --yakNotify title message
 --  spawn yakNotifyStr title message
-
-cmdTerminator = "terminator"
---cmdSpotifyPlayPause = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-cmdPlayPause = "playerctl play-pause"
-cmdNext      = "playerctl next"
-cmdPrev      = "playerctl previous"
-
-
-
 
 data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
 
@@ -342,26 +333,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Toggle current focus window to fullscreen
   , ((modMask, xK_f), sendMessage $ Toggle FULL)
 
-  -- Mute volume.
-  , ((0, xF86XK_AudioMute), spawn "amixer -q set Master toggle")
-
-  -- Decrease volume.
-  , ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set Master 5%-")
-
-  -- Increase volume.
-  , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q set Master 5%+")
-
-  -- Audio previous.
-  , ((0, 0x1008FF16), spawn "cmdPrev")
-
-  -- Play/pause.
-  , ((0, 0x1008FF14), spawn "cmdPlayPause")
-
-  -- Audio next.
-  , ((0, 0x1008FF17), spawn "cmdNext")
-
-  -- Eject CD tray.
-  , ((0, 0x1008FF2C), spawn "eject -T")
+  , ((0, xF86XK_AudioMute),         spawn C.cmdToggleMute)
+  , ((0, xF86XK_AudioLowerVolume),  spawn C.cmdVolDown)
+  , ((0, xF86XK_AudioRaiseVolume),  spawn C.cmdVolUp)
+  , ((0, 0x1008FF16),               spawn C.cmdPrev)
+  , ((0, 0x1008FF14),               spawn C.cmdPlayPause)
+  , ((0, 0x1008FF17),               spawn C.cmdNext)
 
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
@@ -413,12 +390,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
 
   -- Quit xmonad.
-  , ((modMask .|. shiftMask, xK_q),
-     io (exitWith ExitSuccess))
+  , ((modMask .|. altMask, xK_q), io (exitWith ExitSuccess))
 
   -- Restart xmonad.
-  , ((modMask, xK_r),
-     restart "xmonad" True)
+  , ((modMask .|. altMask, xK_r), restart "xmonad" True)
   ]
   ++
 
@@ -461,7 +436,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ]
 
   ++
-  
+
 --------------------------------------------------------------------------------------------------
 -- yakkeys
   [
@@ -480,17 +455,20 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. shiftMask, xK_c),     kill)
   , ((controlMask .|. shiftMask, xK_q), kill)
 
+  -- Lock
+  , ((modMask, xK_l),                 spawn C.cmdLock)
+
   -- yakscratch
---  , ((modMask, xK_p),                 scratchpadSpawnActionTerminal cmdTerminator)
+--  , ((modMask, xK_p),                 scratchpadSpawnActionTerminal C.cmdTerminator)
 
   -- volume
   , ((altMask, xK_Page_Up),           spawn "amixer -q set Master 10%+")
   , ((altMask, xK_Page_Down),         spawn "amixer -q set Master 10%-")
 
   -- spotify
-  , ((altMask, xK_l),                 spawn cmdPlayPause)
-  , ((altMask, xK_p),                 spawn cmdNext)
-  , ((altMask, xK_o),                 spawn cmdPrev)
+  , ((altMask, xK_l),                 spawn C.cmdPlayPause)
+  , ((altMask, xK_p),                 spawn C.cmdNext)
+  , ((altMask, xK_o),                 spawn C.cmdPrev)
 
   -- apps
   , ((modMask .|. altMask, xK_s),     spawnToWorkspace "icq"  "slack")
@@ -498,14 +476,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_i),     spawnToWorkspace "idea" "idea")
   , ((modMask .|. altMask, xK_p),     spawn "pavucontrol")
   , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
-  , ((modMask .|. altMask, xK_t),     spawn cmdTerminator)
+  , ((modMask .|. altMask, xK_t),     spawn C.cmdTerminator)
 
   , ((modMask .|. altMask, xK_l),     spawn "notify-send \"A title\" \"A message\"")
 
 -- move to a different module
 --  , ((modMask, xK_b),     spawn foo)
 
-  , ((altMask, xK_t),                 spawn cmdTerminator)
+  , ((altMask, xK_t),                 spawn C.cmdTerminator)
   , ((altMask, xK_g),                 spawn "geany")
 
   , ((controlMask .|. shiftMask, xK_Escape), spawnToWorkspace "etc"  "ksysguard")
