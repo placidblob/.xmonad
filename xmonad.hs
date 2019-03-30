@@ -48,15 +48,16 @@ import qualified Data.Map        as M
 ------------------------------------------------------------------------
 -- yak
 
-import qualified BashCommands as C
+import BashCommands as C
+import Utils as U
 
 ------------------------------------------------------------------------
 -- yak
 
-spawnToWorkspace :: String -> String -> X ()
-spawnToWorkspace workspace program = do
-  spawn program
-  windows $ W.greedyView workspace
+--spawnToWorkspace :: String -> String -> X ()
+--spawnToWorkspace workspace program = do
+--  spawn program
+--  windows $ W.greedyView workspace
 
 --yakNotifyStr :: String -> String -> String
 --yakNotifyStr title message
