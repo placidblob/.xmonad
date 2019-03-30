@@ -1,4 +1,5 @@
 module BashCommands (
+
   cmdLauncher
 
 , cmdTerminal
@@ -14,13 +15,14 @@ module BashCommands (
 , cmdVolUp
 , cmdVolDown
 , cmdToggleMute
+
 ) where
 
   cmdLauncher   = "rofi -show run"
 
   cmdTerminal   = "konsole"
-
   cmdTerminator = "terminator"
+
   cmdScreenshot = "spectacle"
 
   cmdLock       = "i3lock -f -r5 -s3"
