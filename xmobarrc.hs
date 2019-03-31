@@ -19,7 +19,7 @@ Config {
                                  ,"-n","#bbc2cf"
                                  ,"-h","#fb4934"] 50
 
-                    , Run Date "<fc=#ECBE7B><fn=1></fn></fc> %a %b %_d %I:%M" "date" 300
+                    , Run Date "<fc=#ECBE7B><fn=1></fn></fc> %a %b %_d %Hr:%M" "date" 300
                     , Run DynNetwork ["-t","<fc=#4db5bd><fn=1>D</fn></fc> <rx>, <fc=#c678dd><fn=1>U</fn></fc> <tx>"
                                      ,"-H","200"
                                      ,"-L","10"

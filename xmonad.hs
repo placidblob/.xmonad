@@ -54,11 +54,6 @@ import Utils as U
 ------------------------------------------------------------------------
 -- yak
 
---spawnToWorkspace :: String -> String -> X ()
---spawnToWorkspace workspace program = do
---  spawn program
---  windows $ W.greedyView workspace
-
 --yakNotifyStr :: String -> String -> String
 --yakNotifyStr title message
 --  "notify-send " ++ title ++ " " ++ message
