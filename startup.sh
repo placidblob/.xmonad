@@ -57,10 +57,21 @@ if [ -z "$(pgrep guake)" ] ; then
     guake &
 fi
 
-# Google Drive
-if [ -z "$(pgrep insync)" ] ; then
-    insync start &
+# Stalonetray
+if [ -z "$(pgrep stalonetray)" ] ; then
+    stalonetray -c ~/.xmonad/.stalonetray &
 fi
+
+# Stalonetray
+if [ -z "$(pgrep dunst)" ] ; then
+    dunst -config ~/.xmonad/dunstrc &
+fi
+
+# Google Drive
+#if [ -z "$(pgrep insync)" ] ; then
+#    insync start &
+#fi
+
 # xbindkeys
 xbindkeys
 

@@ -123,11 +123,12 @@ myManageHook = composeAll
     , className =? "Tilda"                        --> doCenterFloat
     , className =? "Nitrogen"                     --> doCenterFloat
     , className =? "Spotify"                      --> doCenterFloat
+    , className =? "Slack"                      --> doCenterFloat
 
 -- app affinity --------------------------------------------------------
     , className =? "Idea"                         --> doShift "idea"
 --    , className =? "Idea"                         --> doF (W.shift (myWorkspaces !! 2))
-    , className =? "Slack"                        --> doShift "icq"
+--    , className =? "Slack"                        --> doShift "icq"
     , className =? "Cromium"                      --> doShift "misc"
     , className =? "Geany"                        --> doShift "misc"
 
