@@ -58,9 +58,11 @@ if [ -z "$(pgrep guake)" ] ; then
 fi
 
 # Stalonetray
-if [ -z "$(pgrep stalonetray)" ] ; then
-    stalonetray -c ~/.xmonad/.stalonetray &
-fi
+#if [ -z "$(pgrep stalonetray)" ] ; then
+#    stalonetray -c ~/.xmonad/.stalonetray &
+#fi
+killall stalonetray
+stalonetray -c ~/.xmonad/.stalonetray &
 
 # Dunst
 #if [ -z "$(pgrep dunst)" ] ; then
