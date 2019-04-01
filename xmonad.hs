@@ -434,8 +434,8 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 --  , ((modMask, xK_p),                 scratchpadSpawnActionTerminal C.cmdTerminator)
 
   -- volume
-  , ((altMask, xK_Page_Up),           spawn "amixer -q set Master 10%+")
-  , ((altMask, xK_Page_Down),         spawn "amixer -q set Master 10%-")
+  , ((altMask, xK_Page_Up),           spawn cmdVolUp)
+  , ((altMask, xK_Page_Down),         spawn cmdVolDown)
 
   -- spotify
   , ((altMask, xK_l),                 spawn C.cmdPlayPause)
@@ -450,7 +450,8 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
   , ((modMask .|. altMask, xK_t),     spawn C.cmdTerminator)
 
-  , ((modMask, xK_b),     spawn cmdToasty)
+-- test notification
+  , ((modMask, xK_b),                 spawn cmdToasty)
 
 -- move to a different module
 --  , ((modMask, xK_b),     spawn foo)
