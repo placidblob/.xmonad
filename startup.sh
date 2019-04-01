@@ -62,10 +62,12 @@ if [ -z "$(pgrep stalonetray)" ] ; then
     stalonetray -c ~/.xmonad/.stalonetray &
 fi
 
-# Stalonetray
-if [ -z "$(pgrep dunst)" ] ; then
-    dunst -config ~/.xmonad/dunstrc &
-fi
+# Dunst
+#if [ -z "$(pgrep dunst)" ] ; then
+#    dunst -config ~/.xmonad/dunstrc &
+#fi
+killall dunst
+dunst -config ~/.xmonad/dunstrc &
 
 # Google Drive
 #if [ -z "$(pgrep insync)" ] ; then

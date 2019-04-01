@@ -446,11 +446,11 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_s),     spawnToWorkspace "icq"  "slack")
   , ((modMask .|. altMask, xK_g),     spawnToWorkspace "icq"  "telegram-desktop")
   , ((modMask .|. altMask, xK_i),     spawnToWorkspace "idea" "idea")
-  , ((modMask .|. altMask, xK_p),     spawn "pavucontrol")
+  , ((modMask,             xK_p),     spawn cmdAudioCfg)
   , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
   , ((modMask .|. altMask, xK_t),     spawn C.cmdTerminator)
 
-  , ((modMask .|. altMask, xK_l),     spawn "notify-send \"A title\" \"A message\"")
+  , ((modMask, xK_b),     spawn cmdToasty)
 
 -- move to a different module
 --  , ((modMask, xK_b),     spawn foo)
@@ -461,10 +461,8 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((controlMask .|. shiftMask, xK_Escape), spawnToWorkspace "etc"  "ksysguard")
 
   -- move focus
-  , ((altMask, xK_q),
-     windows W.focusDown)
-  , ((altMask, xK_w),
-     windows W.focusUp)
+  , ((altMask, xK_w), windows W.focusDown)
+  , ((altMask, xK_q), windows W.focusUp)
 
   ]
 --------------------------------------------------------------------------------------------------
