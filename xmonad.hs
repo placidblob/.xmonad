@@ -123,7 +123,6 @@ myManageHook = composeAll
     , className =? "Tilda"                        --> doCenterFloat
     , className =? "Nitrogen"                     --> doCenterFloat
     , className =? "Spotify"                      --> doCenterFloat
-    , className =? "Slack"                      --> doCenterFloat
 
 -- app affinity --------------------------------------------------------
     , className =? "Idea"                         --> doShift "idea"

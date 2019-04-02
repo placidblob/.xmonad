@@ -1,16 +1,26 @@
 #!/bin/sh
 
+##################################################################################
+# Window Manager components
+
+killall stalonetray
+stalonetray -c ~/.xmonad/.stalonetray &
+
+killall dunst
+dunst -config ~/.xmonad/dunstrc &
+
+
 # System tray
-if [ -z "$(pgrep trayer)" ] ; then
-    trayer --edge top \
-           --align right \
-           --widthtype percent \
-           --height 24 \
-           --alpha 0 \
-           --transparent true \
-           --width 5 \
-           --tint 0x282c34 &
-fi
+#if [ -z "$(pgrep trayer)" ] ; then
+#    trayer --edge top \
+#           --align right \
+#           --widthtype percent \
+#           --height 24 \
+#           --alpha 0 \
+#           --transparent true \
+#           --width 5 \
+#           --tint 0x282c34 &
+#fi
 
 # Power manager
 if [ -z "$(pgrep xfce4-power-manager)" ] ; then
@@ -56,20 +66,6 @@ fi
 if [ -z "$(pgrep guake)" ] ; then
     guake &
 fi
-
-# Stalonetray
-#if [ -z "$(pgrep stalonetray)" ] ; then
-#    stalonetray -c ~/.xmonad/.stalonetray &
-#fi
-killall stalonetray
-stalonetray -c ~/.xmonad/.stalonetray &
-
-# Dunst
-#if [ -z "$(pgrep dunst)" ] ; then
-#    dunst -config ~/.xmonad/dunstrc &
-#fi
-killall dunst
-dunst -config ~/.xmonad/dunstrc &
 
 # Google Drive
 #if [ -z "$(pgrep insync)" ] ; then
