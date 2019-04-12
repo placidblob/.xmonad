@@ -328,25 +328,26 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_j), windows W.focusDown)
 
   -- Move focus to the previous window.
-  , ((modMask, xK_k), windows W.focusUp  )
+  , ((modMask, xK_k), windows W.focusUp)
 
   -- Move focus to the master window.
-  , ((modMask, xK_m), windows W.focusMaster  )
+  , ((modMask, xK_m), windows W.focusMaster)
 
   -- Swap the focused window and the master window.
 --  , ((modMask, xK_Return), windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_j), windows W.swapDown  )
+  , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. shiftMask, xK_k), windows W.swapUp    )
+  , ((modMask .|. shiftMask, xK_k), windows W.swapUp)
 
+  -- TODO doesn't work
   -- Shrink the master area.
-  , ((modMask, xK_h), sendMessage Shrink)
+  , ((modMask .|. controlMask, xK_h), sendMessage Shrink)
 
   -- Expand the master area.
-  , ((modMask, xK_l), sendMessage Expand)
+  , ((modMask .|. controlMask, xK_l), sendMessage Expand)
 
   -- Push window back into tiling.
   , ((modMask, xK_t), withFocused $ windows . W.sink)
