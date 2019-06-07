@@ -563,6 +563,7 @@ main = do
                 , ppSep = "   "
                 , ppOutput = hPutStrLn xmproc
          } >> updatePointer (0.75, 0.75) (0.75, 0.75)
+           >> setWMName "LG3D"
       }
 
 ------------------------------------------------------------------------

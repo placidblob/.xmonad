@@ -35,11 +35,11 @@ Config {
                                    , "-h", "#aa4450"] 50
 
                     -- battery monitor
-                    , Run BatteryP       [ "BAT0" ]
+                    , Run BatteryP       [ "ACAD", "BAT1" ]
                                          [ "--template" , "<fc=#B1DE76><fn=1>B</fn></fc> <acstatus>"
                                          , "--Low"      , "10"        -- units: %
                                          , "--High"     , "80"        -- units: %
-                                         , "--low"      , "#fb4934" -- #ff5555
+                                         , "--low"      , "#fb4934"   -- #ff5555
                                          , "--normal"   , "#bbc2cf"
                                          , "--high"     , "#98be65"
 
