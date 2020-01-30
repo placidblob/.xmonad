@@ -1,78 +1,32 @@
 #!/bin/sh
 
-##################################################################################
-# Window Manager components
-
+# Tray icons
 killall trayer
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
        --expand true --width 10 --transparent true --alpha 0 --tint 0x283339  \
        --monitor 0 &
 
+# Desktop notifications
 killall dunst
 dunst -config ~/.xmonad/dunstrc &
 
-
-# System tray
-#if [ -z "$(pgrep trayer)" ] ; then
-#    trayer --edge top \
-#           --align right \
-#           --widthtype percent \
-#           --height 24 \
-#           --alpha 0 \
-#           --transparent true \
-#           --width 5 \
-#           --tint 0x282c34 &
-#fi
-
 # Power manager
-if [ -z "$(pgrep xfce4-power-manager)" ] ; then
-    xfce4-power-manager &
-fi
-
-# Taffybar
-# if [ -z "$(pgrep taffybar)" ] ; then
-#     taffybar &
-# fi
-
-# Redshift
-if [ -z "$(pgrep redshift)" ] ; then
-    redshift &
-fi
-
-# Autolock
-# if [ -z "$(pgrep xautolock)" ] ; then
-    # xautolock -time 1 -locker "if ! grep 'RUNNING' /proc/asound/card*/pcm*/sub*/status;then xscreensaver-command -lock; else echo 'Sound on'; fi"
-# fi
+[ -z "$(pgrep xfce4-power-manager)" ] && xfce4-power-manager &
 
 # Wallpaper
-if [ -z "$(pgrep nitrogen)" ] ; then
-    nitrogen --restore &
-fi
+[ -z "$(pgrep nitrogen)" ] && nitrogen --restore &
 
 # Screensaver
-if [ -z "$(pgrep xscreensaver)" ] ; then
-    xscreensaver -no-splash &
-fi
+[ -z "$(pgrep xscreensaver)" ] && xscreensaver -no-splash &
 
 # compton
-if [ -z "$(pgrep compton)" ] ; then
-    compton -b &
-fi
+[ -z "$(pgrep compton)" ] && compton -b &
 
 # Network Applet
-if [ -z "$(pgrep nm-applet)" ] ; then
-    nm-applet &
-fi
+[ -z "$(pgrep nm-applet)" ] && nm-applet &
 
 # Guake
-if [ -z "$(pgrep guake)" ] ; then
-    guake &
-fi
-
-# Google Drive
-#if [ -z "$(pgrep insync)" ] ; then
-#    insync start &
-#fi
+[ -z "$(pgrep guake)" ] && guake &
 
 # xbindkeys
 xbindkeys
