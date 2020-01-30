@@ -120,6 +120,7 @@ myManageHook = composeAll
 
 -- yak -----------------------------------------------------------------
     , className =? "Guake"                        --> doCenterFloat
+    , className =? "Yakuake"                      --> doCenterFloat
     , className =? "Tilda"                        --> doCenterFloat
     , className =? "Nitrogen"                     --> doCenterFloat
     , className =? "Spotify"                      --> doCenterFloat
@@ -127,6 +128,7 @@ myManageHook = composeAll
 
 -- app affinity --------------------------------------------------------
     , className =? "Idea"                         --> doShift "idea"
+    , className =? "Webstorm"                     --> doShift "idea"
 --    , className =? "Idea"                         --> doF (W.shift (myWorkspaces !! 2))
 --    , className =? "Slack"                        --> doShift "icq"
     , className =? "Cromium"                      --> doShift "misc"
@@ -135,6 +137,7 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 
     , className =? "stalonetray"                  --> doIgnore
+    , className =? "trayer"                  --> doIgnore
     , isFullscreen                                --> (doF W.focusDown <+> doFullFloat)
     -- , isFullscreen                             --> doFullFloat
     ]

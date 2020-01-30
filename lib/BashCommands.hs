@@ -27,10 +27,6 @@ module BashCommands (
 
   var__VolumeStep = "5%"
 
-  -- i3lock blur parameters
-  var__BlurRadius = "5"
-  var__BlurSigma  = "4"
-
 -------------------------------------------------------------------------------------------------
 -- commands
 
@@ -45,7 +41,7 @@ module BashCommands (
   cmdScreenshot = "spectacle"
 
   -- lock screen
-  cmdLock       = "i3lock -f -r" ++ var__BlurRadius ++ " -s" ++ var__BlurSigma
+  cmdLock       = "i3lock -i ~/.dot/wallpaper.jpg"
 
   -- media
   cmdPlayPause  = "playerctl play-pause"

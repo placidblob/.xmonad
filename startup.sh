@@ -3,8 +3,10 @@
 ##################################################################################
 # Window Manager components
 
-killall stalonetray
-stalonetray -c ~/.xmonad/.stalonetray &
+killall trayer
+trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+       --expand true --width 10 --transparent true --alpha 0 --tint 0x283339  \
+       --monitor 0 &
 
 killall dunst
 dunst -config ~/.xmonad/dunstrc &
