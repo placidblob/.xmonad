@@ -451,7 +451,7 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. altMask, xK_g),     spawnToWorkspace "icq"  "telegram-desktop")
   , ((modMask .|. altMask, xK_i),     spawnToWorkspace "idea" "idea")
   , ((modMask,             xK_p),     spawn cmdAudioCfg)
-  , ((modMask .|. altMask, xK_v),     spawn "vivaldi")
+  , ((modMask .|. altMask, xK_v),     spawn cmdBrowser)
   , ((modMask .|. altMask, xK_t),     spawn C.cmdTerminator)
 
 -- test notification
