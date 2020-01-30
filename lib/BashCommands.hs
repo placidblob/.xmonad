@@ -41,7 +41,7 @@ module BashCommands (
   cmdScreenshot = "spectacle"
 
   -- lock screen
-  cmdLock       = "i3lock -i ~/.dot/wallpaper.jpg"
+  cmdLock       = "i3lock-fancy"
 
   -- media
   cmdPlayPause  = "playerctl play-pause"
