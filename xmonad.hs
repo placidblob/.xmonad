@@ -111,7 +111,7 @@ myManageHook = composeAll
 --    , resource  =? "desktop_window"               --> doIgnore
     , className =? "Galculator"                   --> doCenterFloat
     , className =? "Steam"                        --> doCenterFloat
-    , className =? "Gimp"                         --> doCenterFloat
+--    , className =? "Gimp"                         --> doCenterFloat
     , resource  =? "gpicview"                     --> doCenterFloat
     , className =? "MPlayer"                      --> doCenterFloat
     , className =? "Pavucontrol"                  --> doCenterFloat
@@ -123,6 +123,7 @@ myManageHook = composeAll
     , className =? "Tilda"                        --> doCenterFloat
     , className =? "Nitrogen"                     --> doCenterFloat
     , className =? "Spotify"                      --> doCenterFloat
+    , className =? "Gimp"                         --> doFloat
 
 -- app affinity --------------------------------------------------------
     , className =? "Idea"                         --> doShift "idea"
