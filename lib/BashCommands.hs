@@ -24,7 +24,7 @@ module BashCommands (
 -- commands
 
   -- launcher
-  cmdLauncher   = "rofi -show run"
+  cmdLauncher   = "rofi -theme solarized_alternate -show run"
 
   -- terminals
   cmdTerminator = "terminator"

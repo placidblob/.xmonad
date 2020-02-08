@@ -17,7 +17,7 @@ dunst -config ~/.xmonad/dunstrc &
 [ -z "$(pgrep nitrogen)" ] && nitrogen --restore &
 
 # Screensaver
-[ -z "$(pgrep xscreensaver)" ] && xscreensaver -no-splash &
+#[ -z "$(pgrep xscreensaver)" ] && xscreensaver -no-splash &
 
 # compton
 [ -z "$(pgrep compton)" ] && compton -b &

@@ -10,6 +10,7 @@ import XMonad
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.SpawnOn
+import XMonad.Actions.WindowGo
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -88,7 +89,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","etc"]
+myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","\xf535"]
 
 
 ------------------------------------------------------------------------
@@ -457,13 +458,12 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- test notification
   , ((modMask, xK_b),                 spawn cmdToasty)
 
--- move to a different module
---  , ((modMask, xK_b),     spawn foo)
+  , ((mod4Mask, xK_0  ),  runOrRaise  "terminator"    (title =? "scratch"))
 
   , ((altMask, xK_t),                 spawn C.cmdTerminator)
   , ((altMask, xK_g),                 spawn "geany")
 
-  , ((controlMask .|. shiftMask, xK_Escape), spawnToWorkspace "etc"  "ksysguard")
+  , ((controlMask .|. shiftMask, xK_Escape), runOrRaise "ksysguard" (title =? "ksysguard"))
 
   -- move focus
   , ((altMask, xK_w), windows W.focusDown)
