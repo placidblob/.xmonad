@@ -1,6 +1,6 @@
 Config {
        font = "xft:Zekton:size=13:bold:antialias=true"
-       , additionalFonts = [ "xft:FontAwesome:size=12`" ]
+       , additionalFonts = [ "xft:FontAwesome:size=12" ]
        , allDesktops = False
        , bgColor = "#282c34"
        , fgColor = "#bbc2cf"
