@@ -89,7 +89,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","\xf535"]
+myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","etc","etc2","etc3","etc4"]
 
 
 ------------------------------------------------------------------------
@@ -423,13 +423,15 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((altMask, xK_z),                 windows $ W.greedyView "term")
   , ((altMask, xK_c),                 windows $ W.greedyView "misc")
   , ((altMask, xK_s),                 windows $ W.greedyView "music")
+  , ((altMask, xK_d),                 windows $ W.greedyView "etc3")
   , ((altMask .|. controlMask, xK_a), windows $ W.greedyView "video")
   , ((altMask .|. controlMask, xK_z), windows $ W.greedyView "mail")
   , ((altMask .|. controlMask, xK_x), windows $ W.greedyView "icq")
   , ((altMask .|. controlMask, xK_c), windows $ W.greedyView "etc")
+  , ((altMask .|. controlMask, xK_s), windows $ W.greedyView "etc2")
+  , ((altMask .|. controlMask, xK_d), windows $ W.greedyView "etc4")
 
   -- Close focused window.
-  , ((modMask .|. shiftMask, xK_c),     kill)
   , ((controlMask .|. shiftMask, xK_q), kill)
 
   -- Lock
