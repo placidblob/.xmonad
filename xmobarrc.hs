@@ -38,7 +38,7 @@ Config {
                                    , "-h", "#aa4450"] 50
 
                     -- battery monitor
-                    , Run BatteryP       [ "ADP1", "BAT0" ]
+                    , Run BatteryP       [ "ADP1", "BAT1" ]
                                          [ "--template" , "<fc=#B1DE76><fn=1>\xf240</fn></fc> <acstatus>"
                                          , "--Low"      , "10"        -- units: %
                                          , "--High"     , "80"        -- units: %

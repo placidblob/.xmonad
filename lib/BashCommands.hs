@@ -37,7 +37,7 @@ module BashCommands (
   cmdScreenshot = "spectacle"
 
   -- lock screen
-  cmdLock       = "i3lock-fancy"
+  cmdLock       = "i3lock-fancy-rapid"
 
   -- media
   cmdPlayPause  = "playerctl play-pause"

@@ -128,17 +128,17 @@ myManageHook = composeAll
     , className =? "Gimp"                         --> doFloat
 
 -- app affinity --------------------------------------------------------
-    , className =? "Idea"                         --> doShift "idea"
-    , className =? "Webstorm"                     --> doShift "idea"
+--    , className =? "Idea"                         --> doShift "idea"
+--    , className =? "Webstorm"                     --> doShift "idea"
 --    , className =? "Idea"                         --> doF (W.shift (myWorkspaces !! 2))
 --    , className =? "Slack"                        --> doShift "icq"
-    , className =? "Cromium"                      --> doShift "misc"
-    , className =? "Geany"                        --> doShift "misc"
+--    , className =? "Cromium"                      --> doShift "misc"
+--    , className =? "Geany"                        --> doShift "misc"
 
 ------------------------------------------------------------------------
 
     , className =? "stalonetray"                  --> doIgnore
-    , className =? "trayer"                  --> doIgnore
+    , className =? "trayer"                       --> doIgnore
     , isFullscreen                                --> (doF W.focusDown <+> doFullFloat)
     -- , isFullscreen                             --> doFullFloat
     ]
@@ -156,7 +156,7 @@ myManageHook = composeAll
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
-outerGaps    = 3
+outerGaps    = 0;
 myGaps       = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
 addSpace     = renamed [CutWordsLeft 2] . spacing gap
 tab          =  avoidStruts
@@ -230,7 +230,7 @@ cyan    = "#2aa198"
 green   = "#859900"
 
 -- sizes
-gap         = 3
+gap         = 0
 topbar      = 10
 border      = 0
 prompt      = 20
@@ -450,20 +450,15 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((altMask, xK_o),                 spawn C.cmdPrev)
 
   -- apps
-  , ((modMask .|. altMask, xK_s),     spawnToWorkspace "icq"  "slack")
+--  , ((modMask .|. altMask, xK_s),     spawnToWorkspace "icq"  "slack")
   , ((modMask .|. altMask, xK_g),     spawnToWorkspace "icq"  "telegram-desktop")
   , ((modMask .|. altMask, xK_i),     spawnToWorkspace "idea" "idea")
   , ((modMask,             xK_p),     spawn cmdAudioCfg)
   , ((modMask .|. altMask, xK_v),     spawn cmdBrowser)
   , ((modMask .|. altMask, xK_t),     spawn C.cmdTerminator)
-
+  , ((modMask .|. altMask, xK_g),     spawn "geany")
 -- test notification
   , ((modMask, xK_b),                 spawn cmdToasty)
-
-  , ((mod4Mask, xK_0  ),  runOrRaise  "terminator"    (title =? "scratch"))
-
-  , ((altMask, xK_t),                 spawn C.cmdTerminator)
-  , ((altMask, xK_g),                 spawn "geany")
 
   , ((controlMask .|. shiftMask, xK_Escape), runOrRaise "ksysguard" (title =? "ksysguard"))
 
