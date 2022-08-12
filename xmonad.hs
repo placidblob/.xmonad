@@ -165,7 +165,7 @@ tab          =  avoidStruts
                $ myGaps
                $ tabbed shrinkText myTabTheme
 
-layouts      = avoidStruts $
+layouts      = tab ||| avoidStruts $
                 (
                     renamed [CutWordsLeft 1]
                   $ addTopBar
@@ -176,7 +176,7 @@ layouts      = avoidStruts $
                   $ myGaps
                   $ addSpace (BSP.emptyBSP)
                 )
-                ||| tab
+
 
 myLayout    = smartBorders
               $ mkToggle (NOBORDERS ?? FULL ?? EOT)
