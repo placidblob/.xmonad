@@ -1,5 +1,7 @@
 #!/bin/sh
 
+~/.screenlayout/default_desktop_layout.sh
+
 # Tray icons
 killall trayer
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
@@ -31,4 +33,5 @@ dunst -config ~/.xmonad/dunstrc &
 # xbindkeys
 xbindkeys
 
-setxkbmap -layout "us,el" -option "grp:alt_shift_toggle"
+setxkbmap -layout "us,gr" -option "grp:alt_shift_toggle"
+

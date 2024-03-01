@@ -16,7 +16,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.UrgencyHook
 
 import XMonad.Layout.Gaps
@@ -108,9 +108,9 @@ myWorkspaces = ["web","idea","term","misc", "video","music","7","icq","mail","et
 --
 myManageHook = composeAll
     [
-      className =? "Google-chrome"                --> doShift "mail"
+--      className =? "Google-chrome"                --> doShift "mail"
 --    , resource  =? "desktop_window"               --> doIgnore
-    , className =? "Galculator"                   --> doCenterFloat
+      className =? "Galculator"                   --> doCenterFloat
     , className =? "Steam"                        --> doCenterFloat
 --    , className =? "Gimp"                         --> doCenterFloat
     , resource  =? "gpicview"                     --> doCenterFloat
@@ -120,7 +120,7 @@ myManageHook = composeAll
     , className =? "Xfce4-power-manager-settings" --> doCenterFloat
 
 -- yak -----------------------------------------------------------------
-    , className =? "Guake"                        --> doCenterFloat
+    , className =? "Guake"                        --> doFloat
     , className =? "Yakuake"                      --> doCenterFloat
     , className =? "Tilda"                        --> doCenterFloat
     , className =? "Nitrogen"                     --> doCenterFloat
@@ -534,7 +534,6 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- By default, do nothing.
 myStartupHook = do
-  setWMName "LG3D"
   spawn     "bash ~/.xmonad/startup.sh"
 --  spawnToWorkspace   "icq" "slack"
 --  spawnToWorkspace   "icq" "telegram-desktop"
@@ -564,7 +563,6 @@ main = do
                 , ppSep = "   "
                 , ppOutput = hPutStrLn xmproc
          } >> updatePointer (0.75, 0.75) (0.75, 0.75)
-           >> setWMName "LG3D"
       }
 
 ------------------------------------------------------------------------
@@ -591,8 +589,9 @@ defaults = def {
 
     -- hooks, layouts
     layoutHook         = myLayout,
-    -- handleEventHook    = E.fullscreenEventHook,
+--     handleEventHook    = E.fullscreenEventHook,
     handleEventHook    = fullscreenEventHook,
+--    handleEventHook    = handleEventHook def <+> fullscreenEventHook,
     manageHook         = manageDocks <+> myManageHook,
     startupHook        = myStartupHook
 }
