@@ -111,7 +111,7 @@ myManageHook = composeAll
 --      className =? "Google-chrome"                --> doShift "mail"
 --    , resource  =? "desktop_window"               --> doIgnore
       className =? "Galculator"                   --> doCenterFloat
-    , className =? "Steam"                        --> doCenterFloat
+    , className =? "Steam"                        --> doIgnore
 --    , className =? "Gimp"                         --> doCenterFloat
     , resource  =? "gpicview"                     --> doCenterFloat
     , className =? "MPlayer"                      --> doCenterFloat
@@ -537,6 +537,7 @@ myStartupHook = do
 --  spawnToWorkspace   "icq" "slack"
 --  spawnToWorkspace   "icq" "telegram-desktop"
   setDefaultCursor xC_left_ptr
+  setWMName "LG3D"
 
 
 ------------------------------------------------------------------------
